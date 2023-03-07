@@ -1,12 +1,12 @@
 {
     "env": {
-    "browser": true,
+        "browser": true,
         "es6": true,
         "node": true
-},
+    },
     "extends": ["eslint:recommended", "airbnb", "plugin:prettier/recommended"],
     "rules": {
-    "prettier/prettier": ["error"],
+        "prettier/prettier": ["error"],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
@@ -17,27 +17,26 @@
         "no-plusplus": "off",
         "react/jsx-props-no-spreading": "off",
         "jsx-a11y/label-has-associated-control": [
-        2,
-        {
-            "labelAttributes": ["htmlFor"]
-        }
-    ],
+            2,
+            {
+                "labelAttributes": ["htmlFor"]
+            }
+        ],
         "camelcase": "error",
         "dot-notation": ["off", { "allowPattern": "^[a-z]+(_[a-z]+)+$", "allowKeywords": false }],
         //  react 함수형 컴포넌트 정의 방식 선언
-        //  "react/function-component-definition":[2, {"namedcomponents":"arrow-function"}],
         "react/function-component-definition": "off",
         "no-unneeded-ternary": "off",
         "no-else-return": "off",
         "import/prefer-default-export": "off",
         "default-param-last": "off",
         "no-restricted-syntax": [
-        "error",
-        "FunctionExpression",
-        "WithStatement",
-        "BinaryExpression[operator='in']"
-    ],
+            "error",
+            "FunctionExpression",
+            "WithStatement",
+            "BinaryExpression[operator='in']"
+        ],
         "no-param-reassign": "off",
         "no-unused-vars": "off"
-}
+    }
 }
