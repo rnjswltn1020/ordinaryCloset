@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import MyCart from './pages/MyCart';
 import NewProducts from './pages/NewProducts';
 import ProductsDetail from './pages/ProductsDetail';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
     {
@@ -33,12 +34,20 @@ const router = createBrowserRouter([
             // 신상품
             {
                 path: '/products/new',
-                element: <NewProducts />,
+                element: (
+                    <ProtectedRoute requiredAdmin>
+                        <NewProducts />
+                    </ProtectedRoute>
+                ),
             },
             // 카트
             {
                 path: '/mycart',
-                element: <MyCart />,
+                element: (
+                    <ProtectedRoute>
+                        <MyCart />
+                    </ProtectedRoute>
+                ),
             },
         ],
     },
