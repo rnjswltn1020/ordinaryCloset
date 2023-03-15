@@ -6,6 +6,8 @@ import Main from './pages/Main';
 import Products from './pages/Products';
 import Login from './pages/Login';
 import MyCart from './pages/MyCart';
+import NewProducts from './pages/NewProducts';
+import ProductsDetail from './pages/ProductsDetail';
 
 const router = createBrowserRouter([
     {
@@ -15,18 +17,32 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
+                path: '/',
                 element: <Main />,
             },
+            // 모든상품
             {
                 path: '/products',
                 element: <Products />,
             },
+            // 상품 상세
+            {
+                path: '/products/:id',
+                element: <ProductsDetail />,
+            },
+            // 신상품
+            {
+                path: '/products/new',
+                element: <NewProducts />,
+            },
+            // 카트
             {
                 path: '/mycart',
                 element: <MyCart />,
             },
         ],
     },
+    // 로그인
     {
         path: '/login',
         element: <Login />,
