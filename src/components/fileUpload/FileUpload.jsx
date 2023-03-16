@@ -5,22 +5,13 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import ShowFileImage from './ShowFileImage';
 
-export default function FileUpload({ setData, multiple, error, name }) {
+export default function FileUpload({ setData, currentImg, multiple, error, name }) {
     const fileInputRef = useRef(null);
     const [imageFile, setImageFiles] = useState([]);
 
     const handelClickDelete = number => {
         setImageFiles(imageFile.filter(item => item.number !== number));
     };
-
-    // const throwUpLoadApi = () => {
-    //     const formData = new FormData();
-    //     imageFile.forEach(item => {
-    //         formData.append('images', item.fileObj);
-    //     });
-    //
-    //     // API 전송코드 하단에
-    // };
 
     const uploadFile = () => {
         const { files } = fileInputRef.current;
@@ -39,9 +30,8 @@ export default function FileUpload({ setData, multiple, error, name }) {
                 }
 
                 imageList.push({
-                    title: files[i].name,
-                    thumbnail: URL.createObjectURL(files[i]),
                     fileObj: files[i],
+                    thumbnail: URL.createObjectURL(files[i]),
                     type: files[i].type.slice(0, 5),
                     number: imageNum + 1,
                 });
@@ -58,6 +48,10 @@ export default function FileUpload({ setData, multiple, error, name }) {
     useEffect(() => {
         setData([...imageFile]);
     }, [imageFile, setData]);
+
+    useEffect(() => {
+        if (currentImg === null) setImageFiles([]);
+    }, [currentImg]);
 
     return (
         <ImageFileWrapper>
@@ -95,7 +89,6 @@ const ImageFileWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     gap: 5px;
-    height: 550px;
 `;
 
 const ErrorMsg = styled.p`

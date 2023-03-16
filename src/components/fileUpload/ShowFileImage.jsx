@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 export default function ShowFileImage({ data, onClickDelete }) {
     const onClickDeleteFun = number => {
@@ -6,7 +7,7 @@ export default function ShowFileImage({ data, onClickDelete }) {
     };
     return data.map(file => {
         return (
-            <PreviewWrapper key={file.title}>
+            <PreviewWrapper key={file.number}>
                 <CloseBtn onClick={() => onClickDeleteFun(file.number)}>X</CloseBtn>
                 <div>
                     <img src={file.thumbnail} alt={file.title} />

@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get } from 'firebase/database';
+import { getDatabase, ref, get, set } from 'firebase/database';
+import { v4 as uuid } from 'uuid';
 
 import {
     getAuth,
@@ -24,6 +25,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
+// 로그인
 export async function login() {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider)
@@ -33,10 +35,13 @@ export async function login() {
         })
         .catch(console.log);
 }
+
+// 로그아웃
 export function logout() {
     signOut(auth).catch(console.error);
 }
 
+// 어드민인지 확인
 async function checkIsAdm(user) {
     return get(ref(database, `admins`))
         .then(snapshot => {
@@ -50,10 +55,16 @@ async function checkIsAdm(user) {
             console.error(error);
         });
 }
-
 export async function loginStateChanged(callback) {
     onAuthStateChanged(auth, async user => {
         const updatedUserData = user ? await checkIsAdm(user) : null;
         callback(updatedUserData);
     });
+}
+
+export async function postProducts(data, success, error) {
+    const id = uuid();
+    return set(ref(database, `products/${id}`), { ...data.params, id, image: data.imageUrl })
+        .then(success)
+        .catch(error);
 }
