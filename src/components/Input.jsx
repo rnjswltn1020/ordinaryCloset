@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 
-export default function Input({ id, label, placeholder, onChange, error, value }) {
+export default function Input({ id, label, placeholder, onChange, error, value, type }) {
     return (
         <TextField
             fullWidth
@@ -9,11 +9,13 @@ export default function Input({ id, label, placeholder, onChange, error, value }
             id={id}
             label={label}
             placeholder={placeholder}
-            multiline
+            inputProps={{ min: 0 }}
             value={value}
             variant="outlined"
             onChange={onChange}
+            type={type && type}
             error={error[id] ? true : false}
+            minRows="0"
             helperText={error[id] && error[id]}
         />
     );

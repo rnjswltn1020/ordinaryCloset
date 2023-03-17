@@ -111,6 +111,7 @@ export default function NewProducts() {
                 <Input
                     id="productPrice"
                     label="가격"
+                    type="number"
                     placeholder="가격을 입력해주세요"
                     onChange={handleChange}
                     error={errors}
@@ -136,7 +137,7 @@ export default function NewProducts() {
                 <Input
                     id="productSizes"
                     label="상품 사이즈"
-                    placeholder="상품의 사이즈를 입력해주세요."
+                    placeholder="쉼표로 사이즈를 입력해주세요 ex)XS,S,M"
                     onChange={handleChange}
                     error={errors}
                     value={getProductData.productSizes}

@@ -64,7 +64,13 @@ export async function loginStateChanged(callback) {
 
 export async function postProducts(data, success, error) {
     const id = uuid();
-    return set(ref(database, `products/${id}`), { ...data.params, id, image: data.imageUrl })
+    return set(ref(database, `products/${id}`), {
+        ...data.params,
+        id,
+        image: data.imageUrl,
+        productSizes: data.params.productSizes.split(','),
+        productPrice: Number(data.params.productPrice),
+    })
         .then(success)
         .catch(error);
 }
