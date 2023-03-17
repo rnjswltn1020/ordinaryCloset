@@ -62,6 +62,7 @@ export async function loginStateChanged(callback) {
     });
 }
 
+// 신상품 POST function
 export async function postProducts(data, success, error) {
     const id = uuid();
     return set(ref(database, `products/${id}`), {
@@ -73,4 +74,17 @@ export async function postProducts(data, success, error) {
     })
         .then(success)
         .catch(error);
+}
+
+// 상품 리스트 GET function
+export async function getProductsList() {
+    return get(ref(database, `products`))
+        .then(snapshot => {
+            if (snapshot.exists()) {
+                return Object.values(snapshot.val());
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
