@@ -83,6 +83,7 @@ export async function getProductsList() {
             if (snapshot.exists()) {
                 return Object.values(snapshot.val());
             }
+            return [];
         })
         .catch(error => {
             console.error(error);

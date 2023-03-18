@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import { getProductsList } from '../api/fbase';
-import Product from '../components/Product';
+import ProductCard from '../components/ProductCard';
 
 export default function Products() {
-    const [products, setProducts] = useState([]);
-    const setData = () => {
-        getProductsList().then(setProducts);
-    };
+    const {
+        isLoading,
+        error,
+        data: products,
+    } = useQuery({
+        queryKey: ['products'],
+        queryFn: () => getProductsList(),
+    });
+    if (isLoading) return 'Loading....';
+    if (error) return '에러가 발생하였습니다.';
 
-    useEffect(() => {
-        setData();
-        console.log(products);
-    }, []);
     return (
         <Wrapper>
             {products.map(item => {
-                return <Product key={item.id} data={item} />;
+                return <ProductCard key={item.id} data={item} />;
             })}
         </Wrapper>
     );
@@ -25,5 +27,7 @@ export default function Products() {
 const Wrapper = styled.ul`
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-around;
+    overflow: hidden;
+    gap: 10px;
 `;
