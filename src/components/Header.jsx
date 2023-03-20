@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import styled from 'styled-components';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
@@ -7,6 +5,7 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { Link, useNavigate } from 'react-router-dom';
 import UserIcon from './UserIcon';
 import { useAuthContext } from '../context/AuthContext';
+import Button from './Button';
 
 export default function Header() {
     const navigate = useNavigate();
@@ -30,16 +29,8 @@ export default function Header() {
                 )}
                 {getUserData !== null && <UserIcon user={getUserData} />}
                 <Icon>
-                    {getUserData && (
-                        <button type="button" onClick={logout}>
-                            로그아웃
-                        </button>
-                    )}
-                    {!getUserData && (
-                        <button type="button" onClick={() => navigate('/login')}>
-                            로그인
-                        </button>
-                    )}
+                    {getUserData && <Button onClick={logout} text="로그아웃" />}
+                    {!getUserData && <Button onClick={() => navigate('/login')} text=" 로그인" />}
                 </Icon>
             </Nav>
         </Gnb>
@@ -79,18 +70,4 @@ const Icon = styled.li`
     justify-content: center;
     align-items: center;
     position: relative;
-
-    > button {
-        background: #282c34;
-        color: #fff;
-        padding: 1rem;
-        border-radius: 0.3rem;
-        cursor: pointer;
-        transition: 0.3s;
-
-        &:hover {
-            background-color: rgb(40 44 52 / 57%);
-            color: #ddd;
-        }
-    }
 `;
