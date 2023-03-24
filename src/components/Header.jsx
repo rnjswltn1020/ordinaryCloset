@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { Link, useNavigate } from 'react-router-dom';
 import UserIcon from './UserIcon';
 import { useAuthContext } from '../context/AuthContext';
 import Button from './Button';
+import CartShowCount from './CartShowCount';
 
 export default function Header() {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function Header() {
                 </Link>
                 {getUserData && (
                     <Link to="/mycart">
-                        <ShoppingCartIcon fontSize="large" />
+                        <CartShowCount />
                     </Link>
                 )}
                 {getUserData !== null && getUserData.isAdmin && (
