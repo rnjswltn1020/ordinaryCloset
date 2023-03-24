@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get, set, remove } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -63,17 +63,15 @@ export async function loginStateChanged(callback) {
 }
 
 // 신상품 POST function
-export async function postProducts(data, success, error) {
+export async function postProducts(product, imageUrl) {
     const id = uuid();
     return set(ref(database, `products/${id}`), {
-        ...data.params,
+        ...product,
         id,
-        image: data.imageUrl,
-        productSizes: data.params.productSizes.split(','),
-        productPrice: Number(data.params.productPrice),
-    })
-        .then(success)
-        .catch(error);
+        image: imageUrl,
+        productSizes: product.productSizes.split(','),
+        productPrice: Number(product.productPrice),
+    });
 }
 
 // 상품 리스트 GET function
@@ -88,4 +86,26 @@ export async function getProductsList() {
         .catch(error => {
             console.error(error);
         });
+}
+
+// 장바구니 업데이트 function
+export async function postMyCart(userId, product) {
+    return set(ref(database, `carts/${userId}/${product.id}`), product);
+}
+
+// 장바구니 GET function
+export async function getMyCart(userId) {
+    return get(ref(database, `carts/${userId}`)).then(snapshot => {
+        if (snapshot.exists()) {
+            const result = Object.values(snapshot.val()) || [];
+            return result;
+        } else {
+            return [];
+        }
+    });
+}
+
+// 장바구니 delete function
+export async function deleteFromCart(userId, productId) {
+    return remove(ref(database, `carts/${userId}/${productId}`));
 }
