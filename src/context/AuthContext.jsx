@@ -11,7 +11,7 @@ export function AuthContextProvider({ children }) {
     }, []);
 
     const AuthData = useMemo(() => {
-        return { getUserData, login, logout };
+        return { getUserData, uid: getUserData && getUserData.uid, login, logout };
     }, [getUserData]);
 
     return <AuthContext.Provider value={AuthData}>{children}</AuthContext.Provider>;
