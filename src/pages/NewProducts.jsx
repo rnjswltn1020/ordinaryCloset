@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import Input from '../components/Input';
 import Selectbox from '../components/Selectbox';
 import FileUpload from '../components/fileUpload/FileUpload';
-import { postProducts } from '../api/fbase';
 import { imageUpload } from '../api/imageUpload';
+import useProducts from '../hooks/useProduct';
 
 export default function NewProducts() {
     const initialForm = {
@@ -23,7 +23,7 @@ export default function NewProducts() {
     const [isLoading, setIsLoading] = useState(false);
     const [success, setSuccess] = useState();
     const [errors, setErrors] = useState({});
-
+    const { addProducts } = useProducts();
     const selectBoxItems = [
         { label: '여성', value: 'female' },
         { label: '남성', value: 'male' },
@@ -65,17 +65,16 @@ export default function NewProducts() {
             setIsLoading(true);
             imageUpload(getImageFile[0].fileObj) //
                 .then(imageUrl => {
-                    postProducts(
-                        { params: getProductData, imageUrl },
-                        () => {
-                            setSuccess('새상품이 등록되었습니다🌻 ');
-                            setTimeout(() => {
-                                setSuccess(null);
-                                resetForm();
-                            }, 4000);
-                        },
-                        error => {
-                            console.log(error);
+                    addProducts.mutate(
+                        { product: getProductData, imageUrl },
+                        {
+                            onSuccess: () => {
+                                setSuccess('새상품이 등록되었습니다🌻 ');
+                                setTimeout(() => {
+                                    setSuccess(null);
+                                    resetForm();
+                                }, 4000);
+                            },
                         },
                     );
                 })

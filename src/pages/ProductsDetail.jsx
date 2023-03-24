@@ -5,10 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '../components/Button';
+import { useAuthContext } from '../context/AuthContext';
+import useMyCart from '../hooks/useMyCart';
 
 export default function ProductsDetail() {
     const {
         state: {
+            id,
             image,
             productName,
             targetGender,
@@ -18,8 +21,25 @@ export default function ProductsDetail() {
             productOpt,
         },
     } = useLocation();
+    const { putMyCart } = useMyCart();
+    const { uid } = useAuthContext();
     const [getSize, setSize] = useState(productSizes[0] || []);
     const handleSelect = e => setSize(e.target.value);
+    const handleAddCart = () => {
+        const product = { id, image, productName, productPrice, size: getSize, quantity: 1 };
+
+        putMyCart.mutate(
+            { userId: uid, product },
+            {
+                onSuccess: () => {
+                    alert('장바구니에 추가되었습니다.');
+                },
+                onError: error => {
+                    console.log(error);
+                },
+            },
+        );
+    };
 
     return (
         <BoxWrapper>
@@ -74,7 +94,7 @@ export default function ProductsDetail() {
                             <p className="content">{productOpt}</p>
                         </Row>
                     )}
-                    <Button text="장바구니에 추가" />
+                    <Button text="장바구니에 추가" onClick={handleAddCart} />
                 </div>
             </ItemBox>
         </BoxWrapper>
@@ -84,6 +104,7 @@ export default function ProductsDetail() {
 const BoxWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 15px;
 `;
 
 const ItemBox = styled.section`
@@ -98,7 +119,6 @@ const ItemBox = styled.section`
         padding: 1rem;
         display: flex;
         flex-direction: column;
-        gap: 10px;
     }
 
     @media only screen and (max-width: 768px) {
