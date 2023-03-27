@@ -5,9 +5,12 @@ import { v4 as uuid } from 'uuid';
 import {
     getAuth,
     GoogleAuthProvider,
+    signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
     onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    updateProfile,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -25,15 +28,54 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
-// 로그인
-export async function login() {
+// 이메일,비밀번호로 로그인
+export async function createUser(email, password) {
+    return createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+            const { user } = userCredential;
+            return user;
+        })
+        .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+                alert('같은 이메일주소의 계정이 존재합니다.');
+            }
+        });
+}
+
+export async function updateUserProfile(nickname, thumbnail, success) {
+    return updateProfile(auth.currentUser, {
+        displayName: nickname,
+        photoURL: thumbnail,
+    })
+        .then(success)
+        .catch(console.error);
+}
+
+export async function emailLogin(email, password, success) {
+    return signInWithEmailAndPassword(auth, email, password)
+        .then(success)
+        .catch(error => {
+            if (error.code === 'auth/user-not-found') {
+                alert('존재하지않는 회원입니다. 회원가입을 해주세요.');
+                return;
+            } else if (error.code === 'auth/wrong-password') {
+                alert(
+                    `아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다 입력하신 내용을 다시 확인해주세요.`,
+                );
+            }
+            console.log(error.code);
+        });
+}
+
+// google로 로그인
+export async function googleLogin() {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider)
         .then(res => {
             const { user } = res;
             return user;
         })
-        .catch(console.log);
+        .catch(console.error);
 }
 
 // 로그아웃

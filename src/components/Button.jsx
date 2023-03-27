@@ -11,7 +11,7 @@ export default function Button({ text, type, onClick }) {
 
 const CommonButton = styled.button`
     min-width: 60px;
-    padding: 1rem 0.3rem;
+    padding: 1rem 0.5rem;
     font-size: 12px;
     font-weight: 600;
     background-color: #3c696c;

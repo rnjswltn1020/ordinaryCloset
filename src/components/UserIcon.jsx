@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export default function UserIcon({ user }) {
     return (
         <ProfileWrapper>
-            <img src={user.photoURL} alt={user.displayName} />
-            <UserName>{!user.isAdmin ? user.displayName : '관리자🎅'}</UserName>
+            <img src={user.providerData[0].photoURL} alt={user.providerData[0].displayName} />
+            <UserName>{!user.isAdmin ? user.providerData[0].displayName : '관리자🎅'}</UserName>
         </ProfileWrapper>
     );
 }

@@ -9,6 +9,7 @@ import MyCart from './pages/MyCart';
 import NewProducts from './pages/NewProducts';
 import ProductsDetail from './pages/ProductsDetail';
 import ProtectedRoute from './pages/ProtectedRoute';
+import Join from './pages/Join';
 
 const router = createBrowserRouter([
     {
@@ -55,6 +56,12 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
+        errorElement: <NotFound />,
+    },
+    // 회원가입
+    {
+        path: '/join',
+        element: <Join />,
         errorElement: <NotFound />,
     },
 ]);

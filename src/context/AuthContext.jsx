@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useMemo } from 'react';
-import { loginStateChanged, login, logout } from '../api/fbase';
+import { loginStateChanged, googleLogin, logout, emailLogin } from '../api/fbase';
 
 const AuthContext = createContext();
 
@@ -11,7 +11,13 @@ export function AuthContextProvider({ children }) {
     }, []);
 
     const AuthData = useMemo(() => {
-        return { getUserData, uid: getUserData && getUserData.uid, login, logout };
+        return {
+            getUserData,
+            uid: getUserData && getUserData.uid,
+            googleLogin,
+            logout,
+            emailLogin,
+        };
     }, [getUserData]);
 
     return <AuthContext.Provider value={AuthData}>{children}</AuthContext.Provider>;
