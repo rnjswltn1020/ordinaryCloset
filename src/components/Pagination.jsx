@@ -5,7 +5,6 @@ export default function PaginationBox({ data, rowsPerPage, onChangePage }) {
     const perPage = rowsPerPage || 9;
     const calcPageCount = () => {
         const totalLen = data.length;
-        console.log(totalLen);
         if (totalLen < perPage) {
             return 1;
         } else {

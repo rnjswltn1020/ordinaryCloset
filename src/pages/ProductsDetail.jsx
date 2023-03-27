@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styled from 'styled-components';
 import MenuItem from '@mui/material/MenuItem';
@@ -9,6 +9,7 @@ import { useAuthContext } from '../context/AuthContext';
 import useMyCart from '../hooks/useMyCart';
 
 export default function ProductsDetail() {
+    const navigate = useNavigate();
     const {
         state: {
             id,
@@ -27,6 +28,11 @@ export default function ProductsDetail() {
     const handleSelect = e => setSize(e.target.value);
     const handleAddCart = () => {
         const product = { id, image, productName, productPrice, size: getSize, quantity: 1 };
+
+        if (!uid) {
+            alert('로그인 후 이용해주세요.');
+            navigate('/login');
+        }
 
         putMyCart.mutate(
             { userId: uid, product },
