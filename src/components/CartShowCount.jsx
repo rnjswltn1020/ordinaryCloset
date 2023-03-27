@@ -9,8 +9,12 @@ export default function CartShowCount() {
 
     return (
         <CartWrapper>
-            <ShoppingCartIcon fontSize="large" />
-            <span>{myCart && myCart.length}</span>
+            {myCart && (
+                <>
+                    <ShoppingCartIcon fontSize="large" />
+                    <span>{myCart && myCart.length}</span>
+                </>
+            )}
         </CartWrapper>
     );
 }

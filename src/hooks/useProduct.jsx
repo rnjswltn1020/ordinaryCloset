@@ -13,12 +13,5 @@ export default function useProducts() {
         onSuccess: () => queryClient.invalidateQueries('products'),
     });
 
-    const deleteProducts = useMutation(
-        ({ userId, productId }) => deleteFromCart(userId, productId),
-        {
-            onSuccess: () => queryClient.invalidateQueries('products'),
-        },
-    );
-
-    return { getProducts, addProducts, deleteProducts };
+    return { getProducts, addProducts };
 }

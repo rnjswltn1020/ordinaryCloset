@@ -1,19 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getMyCart as getCartIData, postMyCart } from '../api/fbase';
+import { deleteFromCart, getMyCart as getCartIData, postMyCart } from '../api/fbase';
 import { useAuthContext } from '../context/AuthContext';
 
 export default function useMyCart() {
     const queryClient = useQueryClient();
     const { uid } = useAuthContext();
 
-    const getMyCart = useQuery({
-        queryKey: ['myCart'],
-        queryFn: () => getCartIData(uid),
+    const getMyCart = useQuery(['myCart', uid || ''], () => getCartIData(uid), { enabled: !!uid });
+
+    const putMyCart = useMutation(product => postMyCart(uid, product), {
+        onSuccess: () => queryClient.invalidateQueries(['myCart', uid]),
     });
 
-    const putMyCart = useMutation(({ userId, product }) => postMyCart(userId, product), {
-        onSuccess: () => queryClient.invalidateQueries('myCart'),
+    const deleteProduct = useMutation(({ productId }) => deleteFromCart(uid, productId), {
+        onSuccess: () => queryClient.invalidateQueries(['myCart', uid]),
     });
 
-    return { getMyCart, putMyCart };
+    return { getMyCart, putMyCart, deleteProduct };
 }

@@ -3,28 +3,24 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import useMyCart from '../hooks/useMyCart';
-import useProducts from '../hooks/useProduct';
 
 export default function CartItem({
     product: { id, image, productName, productPrice, size, quantity },
     product,
-    uid,
 }) {
-    const { putMyCart } = useMyCart();
-    const { deleteProducts } = useProducts();
+    const { putMyCart, deleteProduct } = useMyCart();
 
     const plusCount = () => {
-        putMyCart.mutate({ userId: uid, product: { ...product, quantity: quantity + 1 } });
+        putMyCart.mutate({ ...product, quantity: quantity + 1 });
     };
 
     const minusCount = () => {
-        if (quantity > 1)
-            putMyCart.mutate({ userId: uid, product: { ...product, quantity: quantity - 1 } });
+        if (quantity > 1) putMyCart.mutate({ ...product, quantity: quantity - 1 });
     };
     const handleDelete = () => {
         if (window.confirm(`${productName}을 삭제하시겠습니까?`)) {
-            deleteProducts.mutate(
-                { userId: uid, productId: id },
+            deleteProduct.mutate(
+                { productId: id },
                 {
                     onSuccess: () => {
                         alert('삭제하였습니다.');

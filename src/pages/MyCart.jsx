@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
-import { useAuthContext } from '../context/AuthContext';
 import CartItem from '../components/CartItem';
 import Button from '../components/Button';
 import useMyCart from '../hooks/useMyCart';
 
 export default function MyCart() {
-    const { uid } = useAuthContext();
     const {
         getMyCart: { isLoading, error, data: myCart },
     } = useMyCart();
@@ -29,7 +27,7 @@ export default function MyCart() {
                     <div>
                         {myCart &&
                             myCart.map(item => {
-                                return <CartItem key={item.id} product={item} uid={uid} />;
+                                return <CartItem key={item.id} product={item} />;
                             })}
                     </div>
                     <CalcPriceWrapper>

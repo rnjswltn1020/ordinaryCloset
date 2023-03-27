@@ -34,17 +34,14 @@ export default function ProductsDetail() {
             navigate('/login');
         }
 
-        putMyCart.mutate(
-            { userId: uid, product },
-            {
-                onSuccess: () => {
-                    alert('장바구니에 추가되었습니다.');
-                },
-                onError: error => {
-                    console.log(error);
-                },
+        putMyCart.mutate(product, {
+            onSuccess: () => {
+                alert('장바구니에 추가되었습니다.');
             },
-        );
+            onError: error => {
+                console.log(error);
+            },
+        });
     };
 
     return (
