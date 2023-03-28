@@ -10,7 +10,7 @@ import CartShowCount from './CartShowCount';
 export default function Header() {
     const navigate = useNavigate();
     const { getUserData, logout } = useAuthContext();
-    console.log(getUserData);
+
     return (
         <Gnb>
             <Link to="/">Ordinary Closet</Link>

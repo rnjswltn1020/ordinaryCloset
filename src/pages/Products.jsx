@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProductCard from '../components/ProductCard';
 import useProducts from '../hooks/useProduct';
 import PaginationBox from '../components/Pagination';
+import Filtering from '../components/Filtering';
 
 export default function Products() {
     const {
@@ -11,7 +12,8 @@ export default function Products() {
 
     const [getCurrentPage, setCurrentPage] = useState(1);
     const [getItemPerPage, setItemPerPage] = useState(9);
-    const [targetItems, setTargetItems] = useState(null);
+    const [targetCategory, setTargetCategory] = useState('');
+    const [filteredProduct, setFilteredProduct] = useState(products);
 
     const indexOfLast = getCurrentPage * getItemPerPage;
     const indexOfFirst = indexOfLast - getItemPerPage;
@@ -19,9 +21,24 @@ export default function Products() {
         if (posts !== undefined) {
             let currentPost = 0;
             currentPost = posts.slice(indexOfFirst, indexOfLast);
-            setTargetItems(currentPost);
+            setFilteredProduct(currentPost);
         }
     };
+
+    useEffect(() => {
+        if (products) {
+            const changeTab = category => {
+                if (category !== 'all') {
+                    setFilteredProduct(
+                        products.filter(item => item.targetGender === targetCategory),
+                    );
+                } else {
+                    setFilteredProduct(products);
+                }
+            };
+            changeTab(targetCategory);
+        }
+    }, [targetCategory]);
 
     useEffect(() => {
         currentPosts(products);
@@ -34,13 +51,14 @@ export default function Products() {
 
     return (
         <Wrapper>
+            <Filtering selectedIdx={setTargetCategory} />
             <ul>
-                {targetItems &&
-                    targetItems.map(item => {
+                {filteredProduct &&
+                    filteredProduct.map(item => {
                         return <ProductCard key={item.id} data={item} />;
                     })}
             </ul>
-            {products && <PaginationBox data={products} onChangePage={handlePage} />}
+            {filteredProduct && <PaginationBox data={filteredProduct} onChangePage={handlePage} />}
         </Wrapper>
     );
 }
