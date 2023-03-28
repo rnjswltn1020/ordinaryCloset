@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import ReactGA from 'react-ga';
 import Layout from './pages/Layout';
 import NotFound from './pages/NotFount';
 import Main from './pages/Main';
@@ -65,10 +64,6 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
     },
 ]);
-
-const gaTrackingId = process.env.REACT_APP_GA_TRACKING_ID; // 환경 변수에 저장된 추적ID 가져오기
-ReactGA.initialize(gaTrackingId, { debug: true }); // react-ga 초기화 및 debug 사용
-ReactGA.pageview(window.location.pathname); // 추적하려는 page 설정
 
 export default function RouteMap() {
     return <RouterProvider router={router} />;
