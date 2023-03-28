@@ -12,13 +12,13 @@ import Join from './pages/Join';
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/ordinaryCloset',
         element: <Layout />,
         errorElement: <NotFound />,
         children: [
             {
                 index: true,
-                path: '/',
+                path: '/ordinaryCloset',
                 element: <Main />,
             },
             // 모든상품
