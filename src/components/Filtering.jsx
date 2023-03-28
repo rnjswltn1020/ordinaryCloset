@@ -9,7 +9,9 @@ export default function Filtering({ selectedIdx }) {
             text: '남녀공용',
             value: 'genderless',
         },
-        { text: '남성복', value: 'male' },
+        { text: '상의 ', value: 'top' },
+        { text: '바지 ', value: 'pants' },
+        { text: '원피스', value: 'one-piece' },
     ];
     const [getTarget, setTarget] = useState('all');
     const handleTarget = target => {
