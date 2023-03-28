@@ -27,7 +27,7 @@ export default function Filtering({ selectedIdx }) {
                         role="presentation"
                         value={category.value}
                         onClick={() => handleTarget(category.value)}
-                        className={getTarget === category.value && 'active'}>
+                        className={getTarget === category.value ? 'active' : ''}>
                         {category.text}
                     </li>
                 );
