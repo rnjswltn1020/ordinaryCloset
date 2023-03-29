@@ -1,6 +1,6 @@
 {
     "homepage": "https://rnjswltn1020.github.io/ordinaryCloset",
-    "name": "ordinarycloset",
+    "name": "ordinaryCloset",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -12,12 +12,7 @@
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
-        "eslint": "^8.35.0",
-        "eslint-config-airbnb": "^19.0.4",
-        "eslint-config-prettier": "^8.7.0",
-        "eslint-plugin-prettier": "^4.2.1",
         "firebase": "^9.17.2",
-        "gh-pages": "^5.0.0",
         "prettier": "^2.8.4",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -52,6 +47,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "gh-pages": "^5.0.0"
     },
     "proxy": "http://localhost:3000"
 }
