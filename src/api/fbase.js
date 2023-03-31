@@ -117,13 +117,15 @@ export async function postProducts(product, imageUrl) {
 }
 
 // 상품 리스트 GET function
-export async function getProductsList() {
+export async function getProductsList(userId) {
     return get(ref(database, `products`))
         .then(snapshot => {
             if (snapshot.exists()) {
-                return Object.values(snapshot.val());
+                const products = Object.values(snapshot.val());
+                return checkIsFavorite(userId, products);
+            } else {
+                return [];
             }
-            return [];
         })
         .catch(error => {
             console.error(error);
@@ -133,6 +135,11 @@ export async function getProductsList() {
 // 장바구니 업데이트 function
 export async function postMyCart(userId, product) {
     return set(ref(database, `carts/${userId}/${product.id}`), product);
+}
+
+// MYLIKES 업데이트 function
+export async function postMyFavorite(userId, product) {
+    return set(ref(database, `favorites/${userId}/${product.id}`), product);
 }
 
 // 장바구니 GET function
@@ -147,7 +154,42 @@ export async function getMyCart(userId) {
     });
 }
 
+// MYLIKES GET function
+export async function checkIsFavorite(userId, products) {
+    return get(ref(database, `favorites/${userId}`)).then(snapshot => {
+        if (snapshot.exists()) {
+            const userFavorites = Object.values(snapshot.val()) || [];
+            const updatedProducts = products.map(product => {
+                if (JSON.stringify(userFavorites).includes(JSON.stringify(product))) {
+                    return { ...product, like: true };
+                }
+                return { ...product, like: false };
+            });
+
+            return updatedProducts;
+        }
+        return products;
+    });
+}
+
+// MYLIKES GET function
+export async function getMyFavorite(userId) {
+    return get(ref(database, `favorites/${userId}`)).then(snapshot => {
+        if (snapshot.exists()) {
+            const result = Object.values(snapshot.val()) || [];
+            return result;
+        } else {
+            return [];
+        }
+    });
+}
+
 // 장바구니 delete function
 export async function deleteFromCart(userId, productId) {
     return remove(ref(database, `carts/${userId}/${productId}`));
+}
+
+// MYLIKES delete function
+export async function deleteFromMyFavorite(userId, productId) {
+    return remove(ref(database, `favorites/${userId}/${productId}`));
 }

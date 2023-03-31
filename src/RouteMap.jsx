@@ -9,6 +9,7 @@ import NewProducts from './pages/NewProducts';
 import ProductsDetail from './pages/ProductsDetail';
 import ProtectedRoute from './pages/ProtectedRoute';
 import Join from './pages/Join';
+import Favorite from './pages/Favorite';
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,15 @@ const router = createBrowserRouter([
                 element: (
                     <ProtectedRoute>
                         <MyCart />
+                    </ProtectedRoute>
+                ),
+            },
+            // 좋아요
+            {
+                path: '/favorite',
+                element: (
+                    <ProtectedRoute>
+                        <Favorite />
                     </ProtectedRoute>
                 ),
             },

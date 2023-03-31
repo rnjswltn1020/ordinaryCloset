@@ -6,6 +6,7 @@ import UserIcon from './UserIcon';
 import { useAuthContext } from '../context/AuthContext';
 import Button from './Button';
 import CartShowCount from './CartShowCount';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function Header() {
     const navigate = useNavigate();
@@ -15,8 +16,15 @@ export default function Header() {
         <Gnb>
             <Link to="/">Ordinary Closet</Link>
             <Nav>
+                {getUserData && (
+                    <Link to="/favorite">
+                        MY LIKES
+                        <FavoriteIcon size="medium" />
+                    </Link>
+                )}
+
                 <Link to="/products">
-                    Products <CheckroomIcon fontSize="large" />
+                    PRODUCTS <CheckroomIcon fontSize="large" />
                 </Link>
                 {getUserData && (
                     <Link to="/mycart">
@@ -30,8 +38,8 @@ export default function Header() {
                 )}
                 {getUserData !== null && <UserIcon user={getUserData} />}
                 <Icon>
-                    {getUserData && <Button onClick={logout} text="로그아웃" />}
-                    {!getUserData && <Button onClick={() => navigate('/login')} text=" 로그인" />}
+                    {getUserData && <Button onClick={logout} text="LOGOUT" />}
+                    {!getUserData && <Button onClick={() => navigate('/login')} text="LOGIN" />}
                 </Icon>
             </Nav>
         </Gnb>

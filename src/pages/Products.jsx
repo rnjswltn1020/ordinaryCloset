@@ -7,12 +7,13 @@ import Filtering from '../components/Filtering';
 
 export default function Products() {
     const {
-        getProducts: { isLoading, error, data: products },
+        getProducts: { isLoading, error, data: myProduct },
     } = useProducts();
+
     const [getCurrentPage, setCurrentPage] = useState(1);
     const [getItemPerPage] = useState(6);
     const [targetCategory, setTargetCategory] = useState('all');
-    const [filteredProduct, setFilteredProduct] = useState(products);
+    const [filteredProduct, setFilteredProduct] = useState(myProduct);
     const [filterPagination, setFilterPagination] = useState(null);
 
     const indexOfLast = getCurrentPage * getItemPerPage;
@@ -29,33 +30,34 @@ export default function Products() {
 
     const changeTab = category => {
         if (category !== 'all') {
-            const res = [...products].filter(item => item.targetGender === category);
+            const res = [...myProduct].filter(item => item.targetGender === category);
             setFilterPagination(res);
             currentPosts(res);
         } else {
-            setFilterPagination([...products]);
-            currentPosts([...products]);
+            setFilterPagination([...myProduct]);
+            currentPosts([...myProduct]);
         }
     };
 
     useEffect(() => {
-        if (products) {
+        if (myProduct) {
             changeTab(targetCategory);
             handlePage(1);
         }
     }, [targetCategory]);
 
     useEffect(() => {
-        if (products) {
+        if (myProduct) {
             currentPosts(filterPagination);
         }
     }, [getCurrentPage]);
 
     useEffect(() => {
-        if (products) {
+        console.log(myProduct);
+        if (myProduct) {
             changeTab(targetCategory);
         }
-    }, [products]);
+    }, [myProduct]);
 
     if (isLoading) return 'Loading....';
     if (error) return '에러가 발생하였습니다.';
@@ -67,13 +69,13 @@ export default function Products() {
                 {filteredProduct && filteredProduct.length === 0 && <p>상품을 준비중입니다😁</p>}
             </div>
             <ul>
-                {products &&
+                {myProduct &&
                     filteredProduct &&
                     filteredProduct.map(item => {
                         return <ProductCard key={item.id} data={item} />;
                     })}
             </ul>
-            {products && filterPagination && (
+            {myProduct && filterPagination && (
                 <PaginationBox
                     data={filterPagination}
                     onChangePage={handlePage}
