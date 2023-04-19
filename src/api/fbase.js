@@ -117,12 +117,19 @@ export async function postProducts(product, imageUrl) {
 }
 
 // 상품 리스트 GET function
-export async function getProductsList(userId) {
+export async function getProductsList(userId, favorites) {
     return get(ref(database, `products`))
         .then(snapshot => {
             if (snapshot.exists()) {
                 const products = Object.values(snapshot.val());
-                return checkIsFavorite(userId, products);
+                const updatedProducts = products.map(product => {
+                    if (JSON.stringify(favorites || []).includes(JSON.stringify(product))) {
+                        return { ...product, like: true };
+                    }
+                    return { ...product, like: false };
+                });
+
+                return updatedProducts;
             } else {
                 return [];
             }

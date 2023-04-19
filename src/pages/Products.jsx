@@ -59,11 +59,12 @@ export default function Products() {
         }
     }, [myProduct]);
 
-    if (isLoading) return 'Loading....';
+    if (isLoading && myProduct !== undefined) return 'Loading....';
     if (error) return '에러가 발생하였습니다.';
+    if( myProduct === undefined)  return '로그인이 필요한 서비스 입니다.'
 
     return (
-        <Wrapper>
+        myProduct !== undefined && <Wrapper>
             <Filtering selectedIdx={setTargetCategory} />
             <div>
                 {filteredProduct && filteredProduct.length === 0 && <p>상품을 준비중입니다😁</p>}
