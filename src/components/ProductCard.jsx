@@ -56,9 +56,6 @@ export default function ProductCard({
                     <p> {convPrice(productPrice)}</p>
                 </TextWrapper>
             </ItemWrapper>
-            <span onClick={handleHeart} className={like ? 'active' : ''}>
-                <FavoriteIcon size="medium" />
-            </span>
         </ProductList>
     );
 }

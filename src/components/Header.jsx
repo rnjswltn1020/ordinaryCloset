@@ -16,13 +16,6 @@ export default function Header() {
         <Gnb>
             <Link to="/">Ordinary Closet</Link>
             <Nav>
-                {getUserData && (
-                    <Link to="/favorite">
-                        MY LIKES
-                        <FavoriteIcon size="medium" />
-                    </Link>
-                )}
-
                 <Link to="/products">
                     PRODUCTS <CheckroomIcon fontSize="large" />
                 </Link>

@@ -122,14 +122,7 @@ export async function getProductsList(userId, favorites) {
         .then(snapshot => {
             if (snapshot.exists()) {
                 const products = Object.values(snapshot.val());
-                const updatedProducts = products.map(product => {
-                    if (JSON.stringify(favorites || []).includes(JSON.stringify(product))) {
-                        return { ...product, like: true };
-                    }
-                    return { ...product, like: false };
-                });
-
-                return updatedProducts;
+                return products;
             } else {
                 return [];
             }
