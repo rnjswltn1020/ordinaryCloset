@@ -21,6 +21,19 @@ export default function ProductCard({
     const { uid } = useAuthContext();
     const { updateMyFavorite } = useMyFavorite();
 
+    const convGender = (target) =>{
+        let convTarget;
+
+        if(target === 'genderless'){
+            convTarget = '남녀공용';
+        } else if(target ==='female'){
+            convTarget = '여성'
+        } else{
+            convTarget = '남성'
+        }
+        return convTarget
+    }
+
     const convPrice = price => {
         if (price) return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
@@ -50,10 +63,12 @@ export default function ProductCard({
                     style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
                 />
                 <TextWrapper>
-                    <ProductName>{productName}</ProductName>
+                      <div>
+                          <ProductName>{productName}</ProductName>
+                            <span>{convGender(targetGender)}</span>
+                      </div>
                     <p>{productDetail}</p>
-                    <p>{checkGender(targetGender)}</p>
-                    <p> {convPrice(productPrice)}</p>
+                    <p>{convPrice(productPrice)}원</p>
                 </TextWrapper>
             </ItemWrapper>
         </ProductList>
@@ -112,11 +127,30 @@ const ProductName = styled.h2`
 `;
 
 const TextWrapper = styled.div`
-    font-size: 14px;
-
-    & > p:last-of-type {
-        margin-top: 10px;
-        font-size: 15px;
-        font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  
+  &>div{
+   display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:10px;
+    
+    &>span{
+      background: #eee;
+      padding: 4px;
     }
+  }
+  
+  & > p:nth-of-type(1) {
+    color: #807e7e;
+    font-size: 13px;
+  }
+
+  & > p:last-of-type {
+    font-size: 18px;
+    font-weight: 600;
+  }
 `;

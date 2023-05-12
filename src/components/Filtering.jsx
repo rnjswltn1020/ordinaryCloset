@@ -41,6 +41,7 @@ const Filter = styled.ul`
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+  padding-left: 0.5rem;
 
     & > li {
         padding: 6px 0;

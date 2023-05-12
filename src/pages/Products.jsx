@@ -61,14 +61,12 @@ export default function Products() {
 
     if (isLoading && myProduct !== undefined) return 'Loading....';
     if (error) return '에러가 발생하였습니다.';
-    if( myProduct === undefined)  return '로그인이 필요한 서비스 입니다.'
+    if( myProduct === undefined)  return '로그인이 필요한 서비스 입니다😅'
 
     return (
         myProduct !== undefined && <Wrapper>
             <Filtering selectedIdx={setTargetCategory} />
-            <div>
-                {filteredProduct && filteredProduct.length === 0 && <p>상품을 준비중입니다😁</p>}
-            </div>
+            {filteredProduct && filteredProduct.length === 0 && <NoProducts><p>상품을 준비중입니다😁</p></NoProducts>}
             <ul>
                 {myProduct &&
                     filteredProduct &&
@@ -89,9 +87,10 @@ export default function Products() {
 }
 
 const Wrapper = styled.section`
+    width:100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: flex-start;
 
     & > ul:last-of-type {
@@ -105,3 +104,20 @@ const Wrapper = styled.section`
         padding: 1rem;
     }
 `;
+
+const NoProducts = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  &>p{
+    background: rgb(189, 170, 170);
+    font-size: 17px;
+    color: #fff;
+    padding: 0.2rem;
+    border-radius: 5px;
+    font-weight: 600;
+  }
+`

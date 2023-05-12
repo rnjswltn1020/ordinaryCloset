@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export default function UserIcon({ user }) {
     return (
         <ProfileWrapper>
-            <img src={user.providerData[0].photoURL} alt={user.providerData[0].displayName} />
+            <img src={user.providerData[0].photoURL ? user.providerData[0].photoURL : 'https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg '} alt={user.providerData[0].displayName} />
             <UserName>{!user.isAdmin ? user.providerData[0].displayName : '관리자🎅'}</UserName>
         </ProfileWrapper>
     );
@@ -11,30 +11,28 @@ export default function UserIcon({ user }) {
 
 const ProfileWrapper = styled.div`
     position: relative;
-    width: 55px;
-    margin-right: 10px;
+  display: flex;
+  align-items: center;
+  margin-right: -10px;
 
     & > img {
-        height: 60%;
+        height: 36%;
         border-radius: 50px;
-        position: absolute;
-        left: -8px;
-        top: 50%;
-        transform: translateY(-50%);
     }
 
     @media only screen and (max-width: 768px) {
-        width: auto;
+        width: 25px;
+
+      & > img {
+       height: 60%;
+      }
     }
 `;
 
-const UserName = styled.span`
+const UserName = styled.p`
     font-size: 12px;
     font-weight: 600;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
+    width: 110px;
 
     @media only screen and (max-width: 768px) {
         display: none;

@@ -137,7 +137,7 @@ const Row = styled.div`
     display: flex;
     align-items: center;
     border-bottom: 1px solid #eee;
-    padding: 0.4rem 0;
+    padding: 0.6rem 0;
 
     & > .label {
         width: 120px;
@@ -155,4 +155,5 @@ const ProductName = styled.span`
     color: #fff;
     border-radius: 5px;
     font-size: 14px;
+    margin-bottom: 5px;
 `;
