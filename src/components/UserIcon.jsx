@@ -14,10 +14,12 @@ const ProfileWrapper = styled.div`
    display: flex;
    align-items: center;
   gap:5px;
-  width: 104px;
+  width: 100%;
+  max-width: 110px;
 
     & > img {
-        height: 36%;
+      width: 50px;
+      height: 50px;
         border-radius: 50px;
     }
 
@@ -25,13 +27,14 @@ const ProfileWrapper = styled.div`
         width: 25px;
 
       & > img {
-       height: 60%;
+        width: 40px;
+        height: 40px;
       }
     }
 `;
 
 const UserName = styled.p`
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
   
     @media only screen and (max-width: 768px) {
