@@ -88,7 +88,6 @@ export default function Products() {
 
 const Wrapper = styled.section`
     width:100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -107,7 +106,7 @@ const Wrapper = styled.section`
 
 const NoProducts = styled.div`
   width: 100%;
-  height: 100%;
+  height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
