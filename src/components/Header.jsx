@@ -6,7 +6,6 @@ import UserIcon from './UserIcon';
 import { useAuthContext } from '../context/AuthContext';
 import Button from './Button';
 import CartShowCount from './CartShowCount';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function Header() {
     const navigate = useNavigate();

@@ -11,9 +11,10 @@ export default function UserIcon({ user }) {
 
 const ProfileWrapper = styled.div`
     position: relative;
-  display: flex;
-  align-items: center;
-  margin-right: -10px;
+   display: flex;
+   align-items: center;
+  gap:5px;
+  width: 104px;
 
     & > img {
         height: 36%;
@@ -32,8 +33,7 @@ const ProfileWrapper = styled.div`
 const UserName = styled.p`
     font-size: 12px;
     font-weight: 600;
-    width: 110px;
-
+  
     @media only screen and (max-width: 768px) {
         display: none;
     }
